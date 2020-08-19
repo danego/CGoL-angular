@@ -1,0 +1,17 @@
+/* Table/Board Styling */
+table {
+  border: 2px solid black;
+  /* not convinced this looks better on medium to small boards ... */
+  border-collapse: collapse;
+  display: inline-block;
+  /*margin-top: 50px;
+  position: relative;
+  top: 10%; */
+}
+
+table td {
+  border: 1px solid black;
+  padding: 1.25em;
+  background-color: coral;
+
+}

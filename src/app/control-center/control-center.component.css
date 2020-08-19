@@ -1,0 +1,40 @@
+  /* Buttons */
+  .random {
+    background-color: pink;
+  }
+
+  #buttons {
+    width: 300px;
+    align-self: center;
+    padding: 1.25em;
+    background-color: #999;
+
+    display: flex;
+    flex-flow: column;
+    margin: 6em 3em;
+  }
+
+  #buttons > * {
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: center;
+  }
+
+  div {
+    margin-top: 7px;
+  }
+
+  section > div {
+    background-color: #777;
+  }
+
+  #makeTurn:focus {
+    background-color: green;
+    color: white;
+  }
+
+  /* Currently hooked into JS w/ toggle DOM feature*/
+  .activeButton {
+    background-color: forestgreen;
+    color: white;
+  }
