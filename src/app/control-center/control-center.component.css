@@ -1,40 +1,96 @@
-  /* Buttons */
-  .random {
-    background-color: pink;
-  }
+/*Control Center and Stopwatch*/
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
 
-  #buttons {
-    width: 300px;
-    align-self: center;
-    padding: 1.25em;
-    background-color: #999;
+/* Buttons */
+.random {
+  background-color: pink;
+}
 
-    display: flex;
-    flex-flow: column;
-    margin: 6em 3em;
-  }
+#buttons {
+  width: 300px;
+  align-self: center;
+  padding: 1.25em;
+  background-color: #999;
 
-  #buttons > * {
-    display: flex;
-    flex-flow: wrap row;
-    justify-content: center;
-  }
+  display: flex;
+  flex-flow: column;
+  margin: 3em 3em;
+}
 
-  div {
-    margin-top: 7px;
-  }
+#buttons > * {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: center;
+}
 
-  section > div {
-    background-color: #777;
-  }
+label, span {
+  margin-left: 4px;
+  margin-right: 5px;
+}
 
-  #makeTurn:focus {
-    background-color: green;
-    color: white;
-  }
+div {
+  margin-top: 7px;
+}
 
-  /* Currently hooked into JS w/ toggle DOM feature*/
-  .activeButton {
-    background-color: forestgreen;
-    color: white;
-  }
+form > div {
+  background-color: #777;
+}
+
+input:focus {
+  outline: none;
+}
+
+#makeTurn:active {
+  background-color: green;
+  color: white;
+  outline: none;
+}
+
+#autoTurnTimer {
+  background-color: lightgreen;
+}
+
+/*
+.activeButton {
+  background-color: forestgreen;
+  color: white;
+}*/
+
+#clearAll {
+  box-sizing: border-box;
+  border: 1px solid white;
+}
+
+section > div {
+  display: flex;
+  justify-content: center;
+}
+
+/* Stopwatch Styling*/
+#stopwatch {
+  position: absolute;
+  height: 250px;
+  width: 200px;
+}
+
+.stopwatchButton {
+  height: 30px;
+  width: 33px;
+  position: absolute;
+  left: 42%;
+  top: 20.5px;
+}
+
+#stopwatchHand {
+  height:65px;
+  width: 65px;
+  position: absolute;
+  top: 32%;
+  left: 42%;
+  transform-origin: 18px 47px; 
+}

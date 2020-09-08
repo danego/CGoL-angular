@@ -1,29 +1,94 @@
 <section class="center">
   <form id="buttons" [formGroup]="controlForm" (ngSubmit)="onBoardSize()">
-    <input id="makeTurn" type="button" value="makeTurn" (click)="onMakeTurn()">
+    <input 
+      id="makeTurn" 
+      type="button" 
+      value="makeTurn" 
+      (click)="onMakeTurn()">
+
     <div>
-      <label for="autoTurnTimerOn">Timer:</label>
-      <input type="button" id="autoTurnTimerOn" value="On">
-      <label for="autoTurnTimerOff">/</label>
-      <input type="button" id="autoTurnTimerOff" value="Off">
+      <label for="autoTurnTimerOn">Timer: </label>
+      <input 
+        type="button" 
+        id="autoTurnTimer" 
+        name="timer"
+        [value]="autoTurnTimerCurrString" 
+        (click)="onAutoTurnTimer()"
+        appClickedTurn  
+      >     <!--ngClass="{ 'activeButton': activatedButtonAuto }"--> 
+      <span *ngIf="autoTurnTimerEnabled">{{ autoTurnTimeLeftString }} seconds</span>
     </div>
 
     <div>
-      <input id="makeRandomMark" type="button" value="Go Random" class="random">
-      <label for="randoDensity">    Choose how random:</label>
-      <input type="number" id="randoDensity" name="randoDensity" value="5" max="10" min="1">
+      <input 
+        id="makeRandomMark" 
+        type="button" 
+        value="Go Random" 
+        class="random"
+        (click)="onMakeRandomMark()">
+      <label for="randoDensity">Choose how random:</label>
+      <input 
+        type="number" 
+        id="randoDensity" 
+        name="randoDensity" 
+        formControlName="goRandomAmount"
+        (click)="onRandoDensity()"
+        max="10" 
+        min="1">
     </div>
 
     <div>
-      <label for="board-size-select"> Choose board size:</label>
+      <label for="board-size-select">Choose board size:</label>
+      <input 
+        type="range" 
+        name="boardSizeNum" 
+        id="board-size-select" 
+        class="random" 
+        formControlName="boardSize" 
+        (change)="onBoardSize()"
+        min="1" max="100" value="3"
+      >
+      <label for="board-size-select">{{ boardSize }}</label>
+
+      <!--  
       <select name="boardSizeNum" id="board-size-select" class="random" formControlName="boardSize" (change)="onBoardSize()">
         <option value=2>2</option>
         <option value=3>3</option>
         <option value=4>4</option>
         <option value=5>5</option>
         <option value=10>10</option>
-        <option value=15 selected>15</option>
-      </select>
+        <option value=15>15</option>
+      </select> 
+      -->
+    </div>
+    <div>
+      <button
+        (click)="onClearBoard()" 
+        style="margin-left: '10px;'"
+        id="clearAll"
+        appClickedColor
+      >Clear All</button>
     </div>
   </form>
+  <div>
+    <div id="stopwatch" (click)="onAutoTurnTimer()">
+      <img 
+        src='../../assets/stopwatch/stopwatch.png' 
+        width="200px" height='200px'>
+      <div #stopwatchAssets>
+        <img 
+          src='../../assets/stopwatch/stopwatch-button-green.png'
+          *ngIf="!autoTurnTimerEnabled"
+          class="stopwatchButton">
+        <img 
+          src='../../assets/stopwatch/stopwatch-button-red.png'
+          *ngIf="autoTurnTimerEnabled"
+          class="stopwatchButton">
+        <img 
+          src='../../assets/stopwatch/stopwatch-hand.png'
+          id="stopwatchHand"
+          [ngStyle]="progressWatchHand()">
+      </div>
+    </div>
+  </div>
 </section>

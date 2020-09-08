@@ -1,14 +1,13 @@
-<!-- Board will go here, created through JS-->
 <section class="center">
   <table id="board">
-    <tbody>
+    <tbody id="table-body" tableSizing>
       <tr *ngFor="let row of boardHtml; let i = index">
         <td 
           *ngFor="let td of row; let j = index;" 
           (click)="onClick(i, j)"
-          [id]=""
           [ngStyle]="checkToStyle(i, j)"
-          appClickedColor>{{ j + i*5 }}</td>
+          tableSizing>
+        </td> 
       </tr>
     </tbody>
   </table>

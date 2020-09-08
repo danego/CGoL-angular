@@ -7,13 +7,19 @@ import { ControlCenterComponent } from './control-center/control-center.componen
 import { BoardComponent } from './board/board.component';
 import { CgolService } from './cgol.service';
 import { ClickedColorDirective } from './clicked-color.directive';
+import { TableSizingDirective } from './table-sizing.directive';
+import { ClickedTurnDirective } from './clicked-turn.directive';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ControlCenterComponent,
     BoardComponent,
-    ClickedColorDirective
+    ClickedColorDirective,
+    ClickedTurnDirective,
+    TableSizingDirective,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule, 
