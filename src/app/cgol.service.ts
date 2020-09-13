@@ -12,6 +12,7 @@ export class CgolService {
   timerDefaultTime = 30000;
   //used to set & clear timeout references:
   private timerReferencesObject = {   
+    
     timerOverallTimeout: null,
     timerTurnInterval: null,   
     timerTimeRemainingEachSecond: 30

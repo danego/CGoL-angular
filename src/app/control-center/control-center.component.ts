@@ -17,13 +17,9 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   //note - if the string is set to 'ON', the button is currently off
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
-  autoTurnTimeLeft: Subscription;       //ADD ON_DESTROYs!!!
+  autoTurnTimeLeft: Subscription;
   autoTurnTimerCurrString: string = 'ON';
   autoTurnTimeLeftString: string;
-  stopwatchCurrDegrees: number;
-
-  activatedButton: boolean = false;   //for ngClass on turnButton
-  activatedButtonAuto: boolean = false;   //for ngClass on auto turnButton
 
 
   constructor(private cgolService: CgolService) { }
@@ -37,35 +33,28 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
       'boardSize': new FormControl(3)
     });
     this.boardSize = 3;
-    this.resetWatchHand();
+    
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
+
       this.autoTurnTimerEnabled = isEnabled;
       this.handleAutoTurnButtonAppearance();
-      this.resetWatchHand();
     });
     this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
-      if(this.stopwatchCurrDegrees > 56 || this.stopwatchCurrDegrees < -3) {
-        this.stopwatchCurrDegrees -= 6.5;
-      }
-      else {
-        this.stopwatchCurrDegrees -= 5;
-      }
+
       this.autoTurnTimeLeftString = ' ' + timeString;
-    })
+    });
   }
 
   onMakeTurn() {
-    this.activatedButton = true;
     this.cgolService.makeTurn();
-    this.activatedButton = false;
   }
 
   onAutoTurnTimer() {
+
     this.autoTurnTimerEnabled ? 
       this.cgolService.stopAutoTimer() :
       this.cgolService.startAutoTimer();
     this.handleAutoTurnButtonAppearance();
-    this.resetWatchHand();
   }
 
   handleAutoTurnButtonAppearance() {
@@ -76,7 +65,6 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
     else {
       this.autoTurnTimerCurrString = 'ON';
     }
-    this.activatedButtonAuto = !this.activatedButtonAuto;
   }
 
   onMakeRandomMark() {
@@ -84,12 +72,14 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   }
 
   onRandoDensity() {
+
     const totNumberOfSquares = this.cgolService.boardSize * this.cgolService.boardSize;
     const randomMarksCount = Math.floor((totNumberOfSquares / 10) * this.controlForm.get('goRandomAmount').value);
     this.cgolService.makeMarkRandom(randomMarksCount);
   }
 
   onBoardSize() {
+
     this.cgolService.cgolBoardInit(+this.controlForm.get('boardSize').value);
     this.boardSize = +this.controlForm.get('boardSize').value;
   }
@@ -97,19 +87,9 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   onClearBoard() {
     this.cgolService.clearAllMarks();
   }
-
-  progressWatchHand() {
-    const stopwatchCurrDegreesString = this.stopwatchCurrDegrees + 'deg';
-    return {
-      'transform': `rotate(${stopwatchCurrDegreesString})`    
-    }
-  }
-
-  resetWatchHand() {
-    this.stopwatchCurrDegrees = 134;
-  }
-
+ 
   ngOnDestroy() {
+
     this.autoTurnTimerSub.unsubscribe();
     this.autoTurnTimeLeft.unsubscribe();
   }

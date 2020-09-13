@@ -1,33 +1,37 @@
 <section class="center">
   <form id="buttons" [formGroup]="controlForm" (ngSubmit)="onBoardSize()">
-    <input 
+    <button
+      mat-raised-button
       id="makeTurn" 
       type="button" 
-      value="makeTurn" 
       (click)="onMakeTurn()">
+      makeTurn
+    </button>
 
+    <mat-divider [vertical]="true"></mat-divider>
     <div>
       <label for="autoTurnTimerOn">Timer: </label>
-      <input 
+      <button 
+        mat-raised-button
         type="button" 
         id="autoTurnTimer" 
         name="timer"
-        [value]="autoTurnTimerCurrString" 
         (click)="onAutoTurnTimer()"
-        appClickedTurn  
-      >     <!--ngClass="{ 'activeButton': activatedButtonAuto }"--> 
+        appClickedTurn>{{ autoTurnTimerCurrString }}</button>
       <span *ngIf="autoTurnTimerEnabled">{{ autoTurnTimeLeftString }} seconds</span>
     </div>
 
+    <mat-divider [vertical]="true"></mat-divider>
     <div>
-      <input 
+      <button 
+        mat-raised-button
         id="makeRandomMark" 
         type="button" 
-        value="Go Random" 
         class="random"
-        (click)="onMakeRandomMark()">
+        (click)="onMakeRandomMark()">Go Random</button>
       <label for="randoDensity">Choose how random:</label>
       <input 
+        matInput
         type="number" 
         id="randoDensity" 
         name="randoDensity" 
@@ -37,8 +41,28 @@
         min="1">
     </div>
 
+    <span id="spacer"></span>
+
+    <div>
+      <button mat-raised-button color="accent"
+        (click)="onClearBoard()" 
+        style="margin-left: '10px;'"
+        id="clearAll"
+        appClickedColor
+      >Clear All</button>
+    </div>
+
+    <mat-divider [vertical]="true" ></mat-divider>
     <div>
       <label for="board-size-select">Choose board size:</label>
+      <mat-slider 
+        thumbLabel
+        name="boardSizeNum" 
+        id="board-size-select" 
+        formControlName="boardSize" 
+        (change)="onBoardSize()"
+        min="1" max="100" value="3"></mat-slider>
+      <!--
       <input 
         type="range" 
         name="boardSizeNum" 
@@ -47,48 +71,31 @@
         formControlName="boardSize" 
         (change)="onBoardSize()"
         min="1" max="100" value="3"
-      >
+      >-->
       <label for="board-size-select">{{ boardSize }}</label>
-
-      <!--  
-      <select name="boardSizeNum" id="board-size-select" class="random" formControlName="boardSize" (change)="onBoardSize()">
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=10>10</option>
-        <option value=15>15</option>
-      </select> 
-      -->
-    </div>
-    <div>
-      <button
-        (click)="onClearBoard()" 
-        style="margin-left: '10px;'"
-        id="clearAll"
-        appClickedColor
-      >Clear All</button>
     </div>
   </form>
+
   <div>
-    <div id="stopwatch" (click)="onAutoTurnTimer()">
-      <img 
-        src='../../assets/stopwatch/stopwatch.png' 
-        width="200px" height='200px'>
-      <div #stopwatchAssets>
-        <img 
-          src='../../assets/stopwatch/stopwatch-button-green.png'
-          *ngIf="!autoTurnTimerEnabled"
-          class="stopwatchButton">
-        <img 
-          src='../../assets/stopwatch/stopwatch-button-red.png'
-          *ngIf="autoTurnTimerEnabled"
-          class="stopwatchButton">
-        <img 
-          src='../../assets/stopwatch/stopwatch-hand.png'
-          id="stopwatchHand"
-          [ngStyle]="progressWatchHand()">
-      </div>
-    </div>
+    <interactive-stopwatch></interactive-stopwatch>
   </div>
 </section>
+
+
+<!--
+  <div cdkDropList class="drag-list" (cdkDropListDropped)="dropped($event)"
+            *ngFor="let dragCircle of timerDragCircles; let i = index"
+            [cdkDropListData]="timerDragCircles[i]" [style]="applyDragCircleRotate(i)"> 
+            
+          </div>
+
+          <div cdkDropList [cdkDropListData]="timerDragCircleMain">
+            <div id="dragCircle" cdkDragBoundary=".stopwatch-boundary" 
+                cdkDrag> 
+
+                  <div *cdkDragPlaceholder class="drag-placeholder"></div>
+            </div>
+          </div>
+-->
+<!--[style]="applyDragCircleRotate(i)"-->
+<!--(cdkDragEnded)="onDragEnd($event)"-->

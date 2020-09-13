@@ -34,11 +34,12 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     if (this.boardHtml[row][square]) {
       return {
-        'background-color': 'yellow'
+        'background-color': 'lightBlue'
       }
     }
     return {
-      'background-color': 'coral'
+      //'background-color': 'rgba(210, 180, 140, 0.5)'
+      'background-color': 'white'
     }
   }
 

@@ -1,48 +1,52 @@
 /*Control Center and Stopwatch*/
 section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 /* Buttons */
-.random {
-  background-color: pink;
-}
-
 #buttons {
-  width: 300px;
   align-self: center;
   padding: 1.25em;
-  background-color: #999;
+  background-color: #999999;
 
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   margin: 3em 3em;
 }
 
+mat-divider {
+  margin: 0 4px;
+}
+
+/* for styling sub-groups of related buttons*/
 #buttons > * {
   display: flex;
   flex-flow: wrap row;
   justify-content: center;
+  align-items: center;
 }
 
 label, span {
   margin-left: 4px;
   margin-right: 5px;
+  font-weight: bold;
+  font-size: 1.4em;
 }
 
-div {
-  margin-top: 7px;
+button {
+  padding: 0 1em;
+  margin: 0 5px;
 }
 
-form > div {
-  background-color: #777;
+/* Specific Button Styles */
+.random {
+  background-color: pink;
 }
 
-input:focus {
-  outline: none;
+#spacer {
+  flex: 1 1 auto;
 }
 
 #makeTurn:active {
@@ -55,42 +59,7 @@ input:focus {
   background-color: lightgreen;
 }
 
-/*
-.activeButton {
-  background-color: forestgreen;
-  color: white;
-}*/
-
 #clearAll {
   box-sizing: border-box;
   border: 1px solid white;
-}
-
-section > div {
-  display: flex;
-  justify-content: center;
-}
-
-/* Stopwatch Styling*/
-#stopwatch {
-  position: absolute;
-  height: 250px;
-  width: 200px;
-}
-
-.stopwatchButton {
-  height: 30px;
-  width: 33px;
-  position: absolute;
-  left: 42%;
-  top: 20.5px;
-}
-
-#stopwatchHand {
-  height:65px;
-  width: 65px;
-  position: absolute;
-  top: 32%;
-  left: 42%;
-  transform-origin: 18px 47px; 
 }
