@@ -6,7 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+ 
 @NgModule({
   imports: [],
   exports: [
@@ -16,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatDividerModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ]
 })
 

@@ -43,6 +43,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
 
       this.autoTurnTimeLeftString = ' ' + timeString;
     });
+
   }
 
   onMakeTurn() {

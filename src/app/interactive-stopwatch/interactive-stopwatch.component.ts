@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import {CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { CgolService } from '../cgol.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'interactive-stopwatch',
@@ -15,12 +16,13 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
   autoTurnTimeLeft: Subscription;
+  userSetAutoTurnDuration: number;
   stopwatchCurrDegrees: number;
 
   timerDragCircles: any[][];
 
 
-  constructor(private cgolService: CgolService) { }
+  constructor(private cgolService: CgolService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     //Drag & Drop List Set Up
@@ -30,6 +32,7 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     }
     this.timerDragCircles[6][0] = 'c';
 
+    this.userSetAutoTurnDuration = 30;
     this.resetWatchHand();
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
 
@@ -38,9 +41,14 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     });
     this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
 
-      this.stopwatchCurrDegrees -= 6.1;
+      this.stopwatchCurrDegrees -= 6.05;
     });
 
+    let snackbarRef = this.snackBar.open(
+      'Click the stopwatch to start the timer. Move the hourglass icon to change the duration.',
+      'Got it!', {
+        horizontalPosition: 'left'
+      });
   }
 
   progressWatchHand() {
@@ -51,15 +59,22 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   }
 
   resetWatchHand() {
+    // based on the asset images, the watchHand default degrees is -2 at the 45 min mark
+    const defaultMinMark = 45;
+    const defaultStartingDegrees = -2;
+    // used to figure out how many watch marks (15, 20, 25 etc) from default
+    const fromSecondsToInterval = 5; 
+    const degreesForEachInterval = 30;
 
-    this.stopwatchCurrDegrees = 269;
+    const degreesToAdd = (this.userSetAutoTurnDuration - defaultMinMark) / fromSecondsToInterval;
+    this.stopwatchCurrDegrees = defaultStartingDegrees + degreesToAdd * degreesForEachInterval;
   }
 
   onAutoTurnTimer() {
 
     this.autoTurnTimerEnabled ? 
       this.cgolService.stopAutoTimer() :
-      this.cgolService.startAutoTimer();
+      this.cgolService.startAutoTimer(this.userSetAutoTurnDuration);
     this.resetWatchHand();
   }
 
@@ -72,8 +87,12 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
       event.previousIndex,
       event.currentIndex
     );
-    console.log(event.container.element.nativeElement.id);
-    //set new timer Overall Time -- through service ...
+    //cancel timer if currently running
+    this.onAutoTurnTimer();
+
+    const idAsClockTime = 60 - (+event.container.element.nativeElement.id * 5);
+    this.userSetAutoTurnDuration = idAsClockTime;
+    this.resetWatchHand();
   }
 
   applyDragCircleRotate(index) {

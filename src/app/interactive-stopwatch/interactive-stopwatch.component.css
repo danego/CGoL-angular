@@ -24,7 +24,7 @@
   position: absolute;
   top: 37%;
   left: 9%;
-  transform-origin: 84px 65px; 
+  transform-origin: 84px 64.5px; 
 }
 
 
@@ -60,17 +60,3 @@ mat-icon.drag-item {
   background-color: black;
   border: 1px solid black;
 }
-
-/*
-.drag-box {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  margin: 5px 0;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
-
-  left: 28%;
-  bottom: 9%;
-} */

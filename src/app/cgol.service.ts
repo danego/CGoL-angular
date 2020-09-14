@@ -12,7 +12,7 @@ export class CgolService {
   timerDefaultTime = 30000;
   //used to set & clear timeout references:
   private timerReferencesObject = {   
-    
+
     timerOverallTimeout: null,
     timerTurnInterval: null,   
     timerTimeRemainingEachSecond: 30
@@ -240,11 +240,11 @@ export class CgolService {
   }
 
   //Timer Section:
-  startAutoTimer() {
+  startAutoTimer(timerDefaultTime = 30) {
     //add updating seconds remaining count!!
-    let duration = this.timerDefaultTime;
+    let duration = timerDefaultTime * 1000;
     this.timerEnabled.next(true);
-    this.timerTimeRemaining.next(String(this.timerDefaultTime / 1000));
+    this.timerTimeRemaining.next(String(timerDefaultTime));
 
     //set overall timer length
     this.timerReferencesObject.timerOverallTimeout = window.setTimeout(() => {
