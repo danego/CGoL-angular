@@ -1,7 +1,7 @@
 /*Control Center and Stopwatch*/
 section {
   position: relative;
-  height: 100%;
+  height: 96%;
   width: 100%;
 }
 
@@ -9,15 +9,20 @@ section {
 #buttons {
   align-self: center;
   padding: 1.25em;
+  max-height: 50px;
   background-color: #999999;
+  background-color: lightblue;
+  border: 3px solid rgba(222, 184, 135, .8); /* burlywood */
 
   display: flex;
   flex-flow: row;
-  margin: 3em 3em;
+  margin: 1.5em 1em;
+  align-items: center;
 }
 
 mat-divider {
   margin: 0 4px;
+  display: block;
 }
 
 /* for styling sub-groups of related buttons*/
@@ -38,15 +43,17 @@ label, span {
 button {
   padding: 0 1em;
   margin: 0 5px;
+  background-image: url('../../assets/noise.png');
+  max-height: 40px; /* FIX THIS */
+  background-color: #bcaaa4;
+  background-color: rgba(255, 222, 173, .9); /* navajowhite */
+  border: 1px solid white;
 }
 
 /* Specific Button Styles */
-.random {
-  background-color: pink;
-}
-
 #spacer {
   flex: 1 1 auto;
+  /*max-width: 50px;  */ /* FIX THIS */
 }
 
 #makeTurn:active {
@@ -59,7 +66,22 @@ button {
   background-color: lightgreen;
 }
 
+/* For #randoDensity */
+mat-form-field {
+  width: 60px;
+  margin-left: 10px;
+  align-items: center;
+  font-size: 16px;
+}
+
+mat-divider {
+  background-color: rgba(222, 184, 135, .7);
+  height: 60px; 
+  margin: 0 5px;
+}
+
 #clearAll {
   box-sizing: border-box;
   border: 1px solid white;
+  margin-left: 10px;
 }

@@ -37,7 +37,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
 
       this.autoTurnTimerEnabled = isEnabled;
-      this.handleAutoTurnButtonAppearance();
+      this.handleAutoTurnButtonAppearance(isEnabled);
     });
     this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
 
@@ -55,12 +55,11 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
     this.autoTurnTimerEnabled ? 
       this.cgolService.stopAutoTimer() :
       this.cgolService.startAutoTimer();
-    this.handleAutoTurnButtonAppearance();
   }
 
-  handleAutoTurnButtonAppearance() {
-    //switches button to opposite state
-    if (this.autoTurnTimerEnabled) {
+  handleAutoTurnButtonAppearance(isEnabled: boolean) {
+    //switches button to opposite state of argument/curr state
+    if (isEnabled) {
       this.autoTurnTimerCurrString = 'OFF';
     }
     else {

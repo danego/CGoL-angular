@@ -10,18 +10,20 @@ article {
   width: 100vw;
 } 
 
-article > div {
-  background-color: rgba(210, 180, 140, 0.7);
-  position: absolute;
-  height: 96%;
-  width: 100%;
-  margin-top: 10px;
-  /*z-index: -50;*/
+#testing {
+  background-color: red;
 }
 
 /* Main Page Layout */
  #main {
+  position: relative;
+  background-color: lightblue;
+  background-color: rgba(210, 180, 140, 0.6);
   position: absolute;
+  height: 96%;
+  width: 100%;
+  margin-top: 15px;
+  /*z-index: -50;*/
 }
 
 #main section:nth-child(1) {
@@ -30,15 +32,15 @@ article > div {
   width: auto;
   height: 100%;
   width: 100%;
-  /* padding: 5px; */
-  margin-top: 5px;
-  margin-bottom: 10px;
+  /* padding: 5px; 
+  margin-top: 10px; */
+  /*margin-bottom: 10px; */
 }
 
 #main section:nth-child(2) {
   position: absolute;
   bottom: 5%;
-  right: 10%;
+  right: 15%;
   /*justify-self: center;
   align-self: center;
   align-content: center; */

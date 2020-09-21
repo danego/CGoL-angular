@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import {CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { CgolService } from '../cgol.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'interactive-stopwatch',
@@ -18,11 +17,11 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   autoTurnTimeLeft: Subscription;
   userSetAutoTurnDuration: number;
   stopwatchCurrDegrees: number;
-
   timerDragCircles: any[][];
+  showMatCardHint: boolean;
 
-
-  constructor(private cgolService: CgolService, private snackBar: MatSnackBar) { }
+  constructor(
+    private cgolService: CgolService) { }
 
   ngOnInit(): void {
     //Drag & Drop List Set Up
@@ -44,11 +43,9 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
       this.stopwatchCurrDegrees -= 6.05;
     });
 
-    let snackbarRef = this.snackBar.open(
-      'Click the stopwatch to start the timer. Move the hourglass icon to change the duration.',
-      'Got it!', {
-        horizontalPosition: 'left'
-      });
+    //this.showMatCardHint = true;
+    this.showMatCardHint = false;
+
   }
 
   progressWatchHand() {
@@ -70,12 +67,23 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     this.stopwatchCurrDegrees = defaultStartingDegrees + degreesToAdd * degreesForEachInterval;
   }
 
-  onAutoTurnTimer() {
-
-    this.autoTurnTimerEnabled ? 
-      this.cgolService.stopAutoTimer() :
-      this.cgolService.startAutoTimer(this.userSetAutoTurnDuration);
+  onAutoTurnTimer(stopTimer?) {
+    //for dragging the hourglass ... otherwise it alternates
+    if (stopTimer) {
+      this.cgolService.stopAutoTimer();
+    }
+    //for regular stopwatch clicking
+    else {
+      this.autoTurnTimerEnabled ? 
+        this.cgolService.stopAutoTimer() :
+        this.cgolService.startAutoTimer(this.userSetAutoTurnDuration);
+    }
     this.resetWatchHand();
+  }
+
+  //used to stop propagation of clicks from hourglass icon (ie don't start the timer)
+  stopPropo(event) {
+    event.stopPropagation();
   }
 
   dropped(event: CdkDragDrop<string[]>) {
@@ -87,8 +95,8 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
       event.previousIndex,
       event.currentIndex
     );
-    //cancel timer if currently running
-    this.onAutoTurnTimer();
+    //cancel timer
+    this.onAutoTurnTimer(true);
 
     const idAsClockTime = 60 - (+event.container.element.nativeElement.id * 5);
     this.userSetAutoTurnDuration = idAsClockTime;

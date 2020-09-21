@@ -13,7 +13,7 @@ export class ClickedColorDirective {
 
   @HostListener('mouseleave') onLeave() {
 
-    this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'white');
+  this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'rgba(255, 222, 173, .9)');
     this.renderer.setStyle(this.elementRef.nativeElement, 'border', '1px solid white');
     this.renderer.setStyle(this.elementRef.nativeElement, 'outline', 'none');
   }

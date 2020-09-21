@@ -5,9 +5,21 @@
   position: absolute;
   height: 250px;
   width: 200px;
-  left: 20%;
   left: 10%;
   top: 40%;
+}
+
+#stopwatch-before {
+  background-color: lightblue;
+  
+  border: 3px dotted burlywood;
+  border-radius: 30%;
+
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  left: 13%;
+  top: 37%;
 }
 
 .stopwatchButton {
@@ -59,4 +71,30 @@ mat-icon.drag-item {
   border-radius: 50%;
   background-color: black;
   border: 1px solid black;
+}
+
+/* Mat Card Hint*/
+mat-card {
+  width: 400px;
+  height: 40px;
+  position: absolute;
+  left: 25px;
+  bottom: 60px;
+  display: flex;
+  z-index: 100;
+
+  line-height: 20px;
+  font-weight: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  background: #323232;
+}
+
+mat-card button {
+  line-height: 36px;
+  color: #bcaaa4;
+  background-color: inherit;
+}
+
+mat-card span {
+  flex: 1 1 auto;
 }

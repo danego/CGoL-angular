@@ -23,8 +23,11 @@ export class ClickedTurnDirective implements OnInit{
     this.renderer.setStyle(this.elRef.nativeElement, 'outline', 'none');
 
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
+
       this.autoTurnTimerEnabled = isEnabled;
-      this.autoTurnButtonColor = this.autoTurnButtonColor === 'lightgreen' ? 'red' : 'lightgreen';
+      isEnabled ? 
+        this.autoTurnButtonColor = 'red' : 
+        this.autoTurnButtonColor = 'lightgreen'
       this.renderer.setStyle(this.elRef.nativeElement, 'background-color', this.autoTurnButtonColor);
     });
   }

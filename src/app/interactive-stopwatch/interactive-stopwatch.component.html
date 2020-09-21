@@ -1,4 +1,4 @@
-
+<div id="stopwatch-before"></div>
 <div id="stopwatch" (click)="onAutoTurnTimer()" class="stopwatch-boundary">
 
   <img 
@@ -31,8 +31,9 @@
         [ngStyle]="applyDragCircleRotate(i)" [id]='i'>
     
         <mat-icon *ngFor="let item of timerDragCircles[i]" cdkDrag 
-          cdkDragBoundary=".stopwatch-boundary" class="drag-item" inline="true">
-    
+          cdkDragBoundary=".stopwatch-boundary" class="drag-item" inline="true"
+          stopPropo> <!-- (click)="stopPropo($event)" -->
+     
           <div *cdkDragPlaceholder class="drag-placeholder"></div>          
           hourglass_full
         </mat-icon>
@@ -41,6 +42,19 @@
     </div>  
   </div>
 </div>
+
+<mat-card *ngIf="showMatCardHint">
+  <mat-card-content>
+    <p>
+      Click the stopwatch to start the timer. <br>
+      Move the hourglass icon to change the duration.
+    </p>
+  </mat-card-content>
+  <span></span>
+  <button mat-raised-button (click)="showMatCardHint = false">
+    Got it!
+  </button>
+</mat-card>
 
 
 

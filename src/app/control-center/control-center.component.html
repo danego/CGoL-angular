@@ -28,35 +28,40 @@
         id="makeRandomMark" 
         type="button" 
         class="random"
-        (click)="onMakeRandomMark()">Go Random</button>
+        (click)="onMakeRandomMark()">
+        Go Random
+      </button>
       <label for="randoDensity">Choose how random:</label>
-      <input 
-        matInput
-        type="number" 
-        id="randoDensity" 
-        name="randoDensity" 
-        formControlName="goRandomAmount"
-        (click)="onRandoDensity()"
-        max="10" 
-        min="1">
+      <mat-form-field appearance="fill">
+        <input 
+          matInput
+          type="number" 
+          id="randoDensity" 
+          name="randoDensity" 
+          formControlName="goRandomAmount"
+          (click)="onRandoDensity()"
+          max="10" 
+          min="1">
+      </mat-form-field>
     </div>
 
     <span id="spacer"></span>
 
     <div>
-      <button mat-raised-button color="accent"
+      <button 
+        mat-raised-button
         (click)="onClearBoard()" 
-        style="margin-left: '10px;'"
         id="clearAll"
         appClickedColor
       >Clear All</button>
     </div>
-
+    
     <mat-divider [vertical]="true" ></mat-divider>
     <div>
       <label for="board-size-select">Choose board size:</label>
       <mat-slider 
         thumbLabel
+        color="primary"
         name="boardSizeNum" 
         id="board-size-select" 
         formControlName="boardSize" 
