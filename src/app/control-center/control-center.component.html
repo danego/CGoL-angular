@@ -61,46 +61,18 @@
       <label for="board-size-select">Choose board size:</label>
       <mat-slider 
         thumbLabel
-        color="primary"
+        color="accent"
         name="boardSizeNum" 
         id="board-size-select" 
         formControlName="boardSize" 
         (change)="onBoardSize()"
         min="1" max="100" value="3"></mat-slider>
-      <!--
-      <input 
-        type="range" 
-        name="boardSizeNum" 
-        id="board-size-select" 
-        class="random" 
-        formControlName="boardSize" 
-        (change)="onBoardSize()"
-        min="1" max="100" value="3"
-      >-->
+   
       <label for="board-size-select">{{ boardSize }}</label>
     </div>
   </form>
 
   <div>
-    <interactive-stopwatch></interactive-stopwatch>
+    <interactive-stopwatch (autoTurnDurationOutput)="onUpdatedDuration($event)"></interactive-stopwatch>
   </div>
 </section>
-
-
-<!--
-  <div cdkDropList class="drag-list" (cdkDropListDropped)="dropped($event)"
-            *ngFor="let dragCircle of timerDragCircles; let i = index"
-            [cdkDropListData]="timerDragCircles[i]" [style]="applyDragCircleRotate(i)"> 
-            
-          </div>
-
-          <div cdkDropList [cdkDropListData]="timerDragCircleMain">
-            <div id="dragCircle" cdkDragBoundary=".stopwatch-boundary" 
-                cdkDrag> 
-
-                  <div *cdkDragPlaceholder class="drag-placeholder"></div>
-            </div>
-          </div>
--->
-<!--[style]="applyDragCircleRotate(i)"-->
-<!--(cdkDragEnded)="onDragEnd($event)"-->

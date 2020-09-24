@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
@@ -11,7 +11,8 @@ import { CgolService } from '../cgol.service';
 })
 
 export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
-
+  
+  @Output() autoTurnDurationOutput = new EventEmitter<number>();
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
   autoTurnTimeLeft: Subscription;
@@ -34,18 +35,18 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     this.userSetAutoTurnDuration = 30;
     this.resetWatchHand();
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
-
+      
       this.autoTurnTimerEnabled = isEnabled;
       this.resetWatchHand();
     });
     this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
-
-      this.stopwatchCurrDegrees -= 6.05;
+      //do not advance timer hand if first emit
+      if (+timeString !== this.userSetAutoTurnDuration) {
+        this.stopwatchCurrDegrees -= 6.05;
+      }
     });
 
-    //this.showMatCardHint = true;
-    this.showMatCardHint = false;
-
+    this.showMatCardHint = true;
   }
 
   progressWatchHand() {
@@ -78,7 +79,6 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
         this.cgolService.stopAutoTimer() :
         this.cgolService.startAutoTimer(this.userSetAutoTurnDuration);
     }
-    this.resetWatchHand();
   }
 
   //used to stop propagation of clicks from hourglass icon (ie don't start the timer)
@@ -101,6 +101,9 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     const idAsClockTime = 60 - (+event.container.element.nativeElement.id * 5);
     this.userSetAutoTurnDuration = idAsClockTime;
     this.resetWatchHand();
+
+    //send new timer duration to parent component for correct button control
+    this.autoTurnDurationOutput.emit(idAsClockTime);
   }
 
   applyDragCircleRotate(index) {

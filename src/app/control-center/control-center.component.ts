@@ -20,6 +20,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   autoTurnTimeLeft: Subscription;
   autoTurnTimerCurrString: string = 'ON';
   autoTurnTimeLeftString: string;
+  userSetTimerDuration: number;
 
 
   constructor(private cgolService: CgolService) { }
@@ -44,6 +45,8 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
       this.autoTurnTimeLeftString = ' ' + timeString;
     });
 
+
+
   }
 
   onMakeTurn() {
@@ -54,7 +57,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
 
     this.autoTurnTimerEnabled ? 
       this.cgolService.stopAutoTimer() :
-      this.cgolService.startAutoTimer();
+      this.cgolService.startAutoTimer(this.userSetTimerDuration);
   }
 
   handleAutoTurnButtonAppearance(isEnabled: boolean) {
@@ -65,6 +68,11 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
     else {
       this.autoTurnTimerCurrString = 'ON';
     }
+  }
+
+  //Output reaction function 
+  onUpdatedDuration(newTime: number) {
+    this.userSetTimerDuration = newTime;
   }
 
   onMakeRandomMark() {

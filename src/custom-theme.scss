@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $cgol-angular-primary: mat-palette($mat-light-blue);
-$cgol-angular-accent: mat-palette($mat-brown, A200, A100, A400);
+$cgol-angular-accent: mat-palette($mat-orange, 100, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $cgol-angular-warn: mat-palette($mat-red);
@@ -32,4 +32,5 @@ $cgol-angular-theme: mat-light-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($cgol-angular-theme);
+
 

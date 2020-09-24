@@ -3,55 +3,41 @@
 #landing {
   background-color: rgba(210, 180, 140, 0.7);
   position: absolute;
-  height: 96%;
+  height: 100%;  
   width: 100%;
-  margin-top: 10px;
   z-index: -50;
+  display: flex; 
+  flex-direction: column;
 }
 
 h1 {
-  font-family: Oswald;
-  letter-spacing: 4px;
-  line-height: 1.5em;
-  transform: rotate(-12deg);
-  font-size: 45px;
   background-color: lightblue;
-  padding: .8em;
-  position: absolute;
-  left: 8%;
-  top: 10%;
-  height: 300px;
-  width: 200px;
+  transform: rotate(-10deg);
+  font-family: Oswald;
+  font-size: 18px;
+  letter-spacing: 4px;
+  line-height: 24px;
+  padding: 10px;
+  margin: 11px 0px 0px 12px;
+
+  height: 100px;
+  width: 100px;
 }
 
 main {
-  position: absolute;
-  left: 50%;
-  top: 13%;
+  align-self: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
-  width: 400px;
-  height: 400px;
   background: url("../../assets/landing-page/paper-pad.png");
   background-size: cover;
-  margin: 0 auto;
-  font-size: 22px;
+  margin: -20px auto 0 auto;
+
+  width: 200px;
+  height: 415px;
+  font-size: 16px;
   font-family: 'Courier New', Courier, monospace;
   padding: 1.4em;
-}
-
-main > div {
-  position: absolute;
-  top: -10%;
-  left: 68%;
-  z-index: -10;
-  width: 200px;
-  height: 200px;
-  background-color: lightblue;
-  border-radius: 70%;
-  border: 1px solid blue;
 }
 
 main ul {
@@ -59,20 +45,21 @@ main ul {
 }
 
 main h3 {
-  margin-top: 40px;
-  margin-bottom: 42px;
+  margin-top: 20px;
+  margin-bottom: 2px;
   font-weight: bold;
-  font-size: 1.17em;
+  font-size: 16px;
   font-family: 'Courier New', Courier, monospace;
 }
 
 main li {
-  line-height: 1.7em;
+  line-height: 24px;
   margin-bottom: 20px;
 }
 
-
 #scroll {
+  width: 70px;
+
   position: absolute;
   bottom: 5px;
   margin-left: auto;
@@ -84,6 +71,73 @@ main li {
 
 #scroll  p {
   color: white;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
+  font-size: 12px;
   margin-bottom: -5px;
+}
+
+#scroll img {
+  width: 100%;
+}
+
+
+@media(min-width: 700px) {
+  #landing { 
+    height: 96%;
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-size: 45px;
+    letter-spacing: 4px;
+    line-height: 7rem;
+    padding: 4rem;
+  
+    transform: rotate(-12deg);
+    position: absolute;
+    left: 8%;
+    top: 10%;
+    height: 30rem;
+    width: 20rem;
+  }
+
+  main {
+    position: absolute;
+    left: 50%;
+    top: 13%;
+  
+    width: 400px;
+    height: 400px;
+    font-size: 22px;
+    padding: 1.4em;
+  }
+
+  main > div {
+    position: absolute;
+    top: -10%;
+    left: 68%;
+    z-index: -10;
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+    border-radius: 70%;
+    border: 1px solid blue;
+  }
+
+  #scroll {
+    width: 150px;
+  
+    position: absolute;
+    bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  #scroll  p {
+    letter-spacing: 3px;
+  }
+
 }
