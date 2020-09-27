@@ -1,74 +1,76 @@
-<section class="center">
+<section>
   <form id="buttons" [formGroup]="controlForm" (ngSubmit)="onBoardSize()">
-    <button
-      mat-raised-button
-      id="makeTurn" 
-      type="button" 
-      (click)="onMakeTurn()">
-      makeTurn
-    </button>
-
-    <mat-divider [vertical]="true"></mat-divider>
-    <div>
-      <label for="autoTurnTimerOn">Timer: </label>
-      <button 
+    <div id="left-buttons">
+      <button
         mat-raised-button
+        id="makeTurn" 
         type="button" 
-        id="autoTurnTimer" 
-        name="timer"
-        (click)="onAutoTurnTimer()"
-        appClickedTurn>{{ autoTurnTimerCurrString }}</button>
-      <span *ngIf="autoTurnTimerEnabled">{{ autoTurnTimeLeftString }} seconds</span>
-    </div>
-
-    <mat-divider [vertical]="true"></mat-divider>
-    <div>
-      <button 
-        mat-raised-button
-        id="makeRandomMark" 
-        type="button" 
-        class="random"
-        (click)="onMakeRandomMark()">
-        Go Random
+        (click)="onMakeTurn()">
+        makeTurn
       </button>
-      <label for="randoDensity">Choose how random:</label>
-      <mat-form-field appearance="fill">
-        <input 
-          matInput
-          type="number" 
-          id="randoDensity" 
-          name="randoDensity" 
-          formControlName="goRandomAmount"
-          (click)="onRandoDensity()"
-          max="10" 
-          min="1">
-      </mat-form-field>
+
+      <mat-divider [vertical]="true"></mat-divider>
+      <div>
+        <label for="autoTurnTimerOn">Timer: </label>
+        <button 
+          mat-raised-button
+          type="button" 
+          id="autoTurnTimer" 
+          name="timer"
+          (click)="onAutoTurnTimer()"
+          appClickedTurn>{{ autoTurnTimerCurrString }}</button>
+        <span *ngIf="autoTurnTimerEnabled">{{ autoTurnTimeLeftString }} seconds</span>
+      </div>
+
+      <mat-divider [vertical]="true"></mat-divider>
+      <div>
+        <button 
+          mat-raised-button
+          id="makeRandomMark" 
+          type="button" 
+          class="random"
+          (click)="onMakeRandomMark()">
+          Go Random
+        </button>
+        <label for="randoDensity">Choose how random:</label>
+        <mat-form-field appearance="fill">
+          <input 
+            matInput
+            type="number" 
+            id="randoDensity" 
+            name="randoDensity" 
+            formControlName="goRandomAmount"
+            (click)="onRandoDensity()"
+            max="10" 
+            min="1">
+        </mat-form-field>
+      </div>
     </div>
 
-    <span id="spacer"></span>
+    <div id="right-buttons"> 
+      <div>     
+  
+        <button 
+          mat-raised-button
+          (click)="onClearBoard()" 
+          id="clearAll"
+          appClickedColor
+        >Clear All</button>
+        
 
-    <div>
-      <button 
-        mat-raised-button
-        (click)="onClearBoard()" 
-        id="clearAll"
-        appClickedColor
-      >Clear All</button>
-    </div>
-    
-    <mat-divider [vertical]="true" ></mat-divider>
-    <div>
-      <label for="board-size-select">Choose board size:</label>
-      <mat-slider 
-        thumbLabel
-        color="accent"
-        name="boardSizeNum" 
-        id="board-size-select" 
-        formControlName="boardSize" 
-        (change)="onBoardSize()"
-        min="1" max="100" value="3"></mat-slider>
-   
-      <label for="board-size-select">{{ boardSize }}</label>
+        <mat-divider [vertical]="true" ></mat-divider>
+        <label for="board-size-select">Choose board size:</label>
+        <mat-slider 
+          thumbLabel
+          color="accent"
+          name="boardSizeNum" 
+          id="board-size-select" 
+          formControlName="boardSize" 
+          (change)="onBoardSize()"
+          min="1" max="100" value="3"></mat-slider>
+      
+        <label for="board-size-select">{{ boardSize }}</label>
+      </div>
     </div>
   </form>
 

@@ -5,30 +5,50 @@ section {
   width: 100%;
 }
 
-/* Buttons */
+/* Buttons / Form */
 #buttons {
   align-self: center;
-  padding: 1.25em;
-  max-height: 50px;
   background-color: #999999;
   background-color: lightblue;
-  border: 3px solid rgba(222, 184, 135, .8); /* burlywood */
-
   display: flex;
-  flex-flow: row;
-  margin: 1.5em 1em;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  
+  border: 1px solid rgba(222, 184, 135, .8); /* burlywood */
+  padding: .5em;
+  margin: .5em .5em;
+  /*max-height: 100px; */
+}
+
+#left-buttons {
+  align-self: flex-start;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
 }
 
+#right-buttons {
+  align-self: flex-end;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* To center equally as left-buttons */
+#right-buttons > div {
+  height: 60px; 
+}
+
 mat-divider {
-  margin: 0 4px;
   display: block;
+  margin: 0 4px;
 }
 
 /* for styling sub-groups of related buttons*/
-#buttons > * {
+#left-buttons > *, #right-buttons > * {
   display: flex;
-  flex-flow: wrap row;
+  flex-flow: row;
   justify-content: center;
   align-items: center;
 }
@@ -36,26 +56,22 @@ mat-divider {
 label, span {
   margin-left: 4px;
   margin-right: 5px;
-  font-weight: bold;
-  font-size: 1.4em;
+
+  font-size: 16px;
 }
 
 button {
-  padding: 0 1em;
-  margin: 0 5px;
   background-image: url("../../assets/noise.png");
-  max-height: 40px; /* FIX THIS */
-  background-color: #bcaaa4;
   background-color: rgba(255, 222, 173, .9); /* navajowhite */
   border: 1px solid white;
+  
+  max-height: 40px; /* FIX THIS */
+  min-width: 85px; /* This will need to be adjusted with text size*/
+  font-size: 12px;
+  padding: 0 5px;
 }
 
 /* Specific Button Styles */
-#spacer {
-  flex: 1 1 auto;
-  /*max-width: 50px;  */ /* FIX THIS */
-}
-
 #makeTurn:active {
   background-color: green;
   color: white;
@@ -64,6 +80,8 @@ button {
 
 #autoTurnTimer {
   background-color: lightgreen;
+  min-width: 0;
+  width: auto;
 }
 
 /* For #randoDensity */
@@ -83,5 +101,41 @@ mat-divider {
 #clearAll {
   box-sizing: border-box;
   border: 1px solid white;
-  margin-left: 10px;
+  /* margin-left: 10px; */
+}
+
+/* Tablet & Up Size */
+@media(min-width: 700px) {
+  #buttons {
+    border: 3px solid rgba(222, 184, 135, .8); /* burlywood */
+    padding: 1.25em;
+    margin: 1.5em 1em;
+
+  }
+
+  /* To center equally as left-buttons */
+  #right-buttons > div {
+    height: 60px;
+  }
+
+  label, span {
+    margin-left: 4px;
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+
+  button {
+    min-width: 95px;
+    padding: 0 10px;
+    margin: 0 5px;
+    font-size: 14px;
+  }
+  
+
+}
+
+/* Laptop & Up Size */
+@media(min-width: 1000px) {
+
 }
