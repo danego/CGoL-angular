@@ -10,7 +10,7 @@
       </button>
 
       <mat-divider [vertical]="true"></mat-divider>
-      <div>
+      <div id=autoTurnTimerDiv>
         <label for="autoTurnTimerOn">Timer: </label>
         <button 
           mat-raised-button
@@ -58,7 +58,7 @@
         >Clear All</button>
         
 
-        <mat-divider [vertical]="true" ></mat-divider>
+        <mat-divider [vertical]="true"></mat-divider>
         <label for="board-size-select">Choose board size:</label>
         <mat-slider 
           thumbLabel
@@ -78,3 +78,4 @@
     <interactive-stopwatch (autoTurnDurationOutput)="onUpdatedDuration($event)"></interactive-stopwatch>
   </div>
 </section>
+

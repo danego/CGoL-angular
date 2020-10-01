@@ -1,14 +1,14 @@
+
 /*Control Center and Stopwatch*/
 section {
   position: relative;
-  height: 96%;
+  height: 100%;
   width: 100%;
 }
 
 /* Buttons / Form */
 #buttons {
   align-self: center;
-  background-color: #999999;
   background-color: lightblue;
   display: flex;
   flex-flow: row wrap;
@@ -37,12 +37,7 @@ section {
 
 /* To center equally as left-buttons */
 #right-buttons > div {
-  height: 60px; 
-}
-
-mat-divider {
-  display: block;
-  margin: 0 4px;
+  height: 45px; 
 }
 
 /* for styling sub-groups of related buttons*/
@@ -60,6 +55,15 @@ label, span {
   font-size: 16px;
 }
 
+label {
+  display: none;
+}
+
+/* For board size */
+label.small-visible {
+  display: inline;
+}
+
 button {
   background-image: url("../../assets/noise.png");
   background-color: rgba(255, 222, 173, .9); /* navajowhite */
@@ -69,6 +73,7 @@ button {
   min-width: 85px; /* This will need to be adjusted with text size*/
   font-size: 12px;
   padding: 0 5px;
+  margin: 0 3px;
 }
 
 /* Specific Button Styles */
@@ -78,24 +83,38 @@ button {
   outline: none;
 }
 
+#autoTurnTimerDiv {
+  flex: 0 40px;
+}
+
+#autoTurnTimerDiv span{
+  width: 90px;
+}
+
 #autoTurnTimer {
   background-color: lightgreen;
-  min-width: 0;
+  min-width: 30px;
   width: auto;
+
+  margin-right: 40px;
 }
 
 /* For #randoDensity */
 mat-form-field {
-  width: 60px;
-  height: 60px;
   margin-left: 10px;
-  font-size: 16px;
+
+  margin-top: 4px;
+  width: 45px;
+  height: 45px;
+  font-size: 12px;
 }
 
-mat-divider {
+#left-buttons > mat-divider, mat-divider {
   background-color: rgba(222, 184, 135, .7);
   height: 50px; 
-  margin: 0 5px;
+  margin: 0px 5px;
+
+  display: none;
 }
 
 #clearAll {
@@ -104,8 +123,17 @@ mat-divider {
   /* margin-left: 10px; */
 }
 
+interactive-stopwatch {
+  display: none;
+}
+
+
 /* Tablet & Up Size */
 @media(min-width: 700px) {
+  section {
+    height: 96%;
+  }
+
   #buttons {
     border: 3px solid rgba(222, 184, 135, .8); /* burlywood */
     padding: 1.25em;
@@ -118,11 +146,24 @@ mat-divider {
     height: 60px;
   }
 
+  #autoTurnTimerDiv {
+    flex: auto;
+  }
+
+  #autoTurnTimerDiv span{
+    width: auto;
+  }
+
+  #autoTurnTimer {
+    min-width: 50px;
+    margin-right: 5px;
+  }
+
   label, span {
     margin-left: 4px;
     margin-right: 5px;
     font-weight: bold;
-    font-size: 1.4em;
+    display: inline;
   }
 
   button {
@@ -131,11 +172,29 @@ mat-divider {
     margin: 0 5px;
     font-size: 14px;
   }
-  
+
+  /* For #randoDensity */
+  mat-form-field {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    
+    margin-top: 0px;
+  }
+
+  #left-buttons > mat-divider, mat-divider {
+    display: block;
+  }
+
+  interactive-stopwatch {
+    display: block;
+  }
 
 }
 
 /* Laptop & Up Size */
 @media(min-width: 1000px) {
-
+  label, span {
+    font-size: 19px;
+  }
 }
