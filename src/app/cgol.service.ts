@@ -5,7 +5,6 @@ export class CgolService {
   private boardArrays: boolean[][];
   boardArraysSub = new Subject<boolean[][]>();  //emits new board size
   private _boardSize: number;            //is length of one side
-  private _boardHtmlTotalLength: number; //total length of boardHTML as single array
 
   timerEnabled =  new Subject<boolean>();
   timerTimeRemaining = new Subject<string>();
@@ -20,12 +19,17 @@ export class CgolService {
 
   //Init & New BoardSize Section:
   cgolBoardInit(boardSize: number) {
-    
-    const boardArraysTemporary = this.copyOldMarksIntoNewBoard(boardSize);
-    //set (or reset) internal variables:
-    this._boardSize = boardSize;
-    this._boardHtmlTotalLength = boardSize * boardSize;
-    this.boardArrays = boardArraysTemporary.slice();
+
+    // Only update boardSize if new, valid size passed in
+    // if parameter === -1, then do not update size; only emit boardArrays
+    if (boardSize !== -1) {
+      
+      const boardArraysTemporary = this.copyOldMarksIntoNewBoard(boardSize);
+      //set (or reset) internal variables:
+      this._boardSize = boardSize;
+      this.boardArrays = boardArraysTemporary.slice();
+    }
+
     this.boardArraysSub.next(this.getBoardArrayNested());
   }
 
@@ -215,7 +219,9 @@ export class CgolService {
     }
     else {
       this.boardArrays[row][square] = !this.boardArrays[row][square];
-      this.boardArraysSub.next(this.getBoardArrayNested());
+
+      //below line needed if getBoardArrayNested() is set to return truly sliced boardArrays
+      //this.boardArraysSub.next(this.getBoardArrayNested());
     }
   }
 
@@ -283,11 +289,18 @@ export class CgolService {
 
   //Getters Section:
   getBoardArrayNested() {
-
+    /* 
+        Line below makes a shallow copy with original references to nested arrays. 
+        While not true separation of code responsibility/permission, the increased speed merits it.
+        Uncomment out the code block below for a truly sliced boardArrays
+    */
+    const slicedArray = this.boardArrays.slice();
+    
+    /*
     const slicedArray = new Array(this.boardSize);
     for (let i = 0; i < this.boardArrays.length; i++) {
       slicedArray[i] = this.boardArrays[i].slice(0);
-    }
+    } */
     return slicedArray;
   }
 

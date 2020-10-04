@@ -22,7 +22,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.boardSubscription = this.cgolService.boardArraysSub.subscribe((arrayNested: any[][]) => {
       this.boardHtml = arrayNested;
     });
-    this.cgolService.cgolBoardInit(3);
+    // must call this (bc order of component initialization), but keep same boardSize (argument of -1)
+    this.cgolService.cgolBoardInit(-1);
   }
 
   onClick(row: number, square: number) {

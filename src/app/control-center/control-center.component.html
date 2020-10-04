@@ -41,6 +41,7 @@
             name="randoDensity" 
             formControlName="goRandomAmount"
             (click)="onRandoDensity()"
+            onkeydown="return false"
             max="10" 
             min="1">
         </mat-form-field>
@@ -67,15 +68,18 @@
           id="board-size-select" 
           formControlName="boardSize" 
           (change)="onBoardSize()"
-          min="1" max="100" value="3"></mat-slider>
+          min="2" max="75"></mat-slider>
       
-        <label for="board-size-select">{{ boardSize }}</label>
+        <label for="board-size-select" class="small-visible">{{ boardSize }}</label>
       </div>
     </div>
   </form>
 
   <div>
-    <interactive-stopwatch (autoTurnDurationOutput)="onUpdatedDuration($event)"></interactive-stopwatch>
+    <interactive-stopwatch 
+      [restoredUserAutoTurnDuration]="restoredFromLocalStorageAutoTurnDuration" 
+      (autoTurnDurationOutput)="onUpdatedDuration($event)">
+    </interactive-stopwatch>
   </div>
 </section>
 

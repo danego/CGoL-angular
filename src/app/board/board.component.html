@@ -1,12 +1,11 @@
 <section class="center">
-  <table id="board">
-    <tbody id="table-body" tableSizing>
+  <table id="board" tableSizing>
+    <tbody id="table-body">
       <tr *ngFor="let row of boardHtml; let i = index">
         <td 
           *ngFor="let td of row; let j = index;" 
           (click)="onClick(i, j)"
-          [ngStyle]="checkToStyle(i, j)"
-          tableSizing>
+          [ngStyle]="checkToStyle(i, j)">
         </td> 
       </tr>
     </tbody>

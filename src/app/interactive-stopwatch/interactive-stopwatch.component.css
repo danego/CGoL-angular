@@ -1,20 +1,20 @@
+/* Designed Mobile First -- only affects overall position of main timer element and background div */
+
 /* Stopwatch Styling*/
 #stopwatch {
-  display: flex;
-  justify-content: center;
-  position: absolute;
   height: 250px;
   width: 200px;
+  position: absolute;
   left: 10%;
   top: 40%;
+  display: flex;
+  justify-content: center;
 }
 
 #stopwatch-before {
   background-color: lightblue;
-  
   border: 3px dotted burlywood;
   border-radius: 30%;
-
   height: 200px;
   width: 200px;
   position: absolute;
@@ -42,59 +42,83 @@
 
 /* Drag & Drop Styling: */
 .drag-list {
-  display: block;
-  position: absolute;
   width: 15px;
   height: 15px;
-  border-radius: 50%;
   border: 1px dotted transparent;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
 }
 
+/* For styling hourglass drop location*/
 .cdk-drop-list-receiving {
   border: 1px solid rgba(66, 59, 59, 0.35);
 }
 
 mat-icon.drag-item {
+  width: 20px;
+  height: 20px;
   font-size: 20px;
   cursor: move;
-  /* For outer box / positioning */
   position: absolute;
   top: -2px;
   left: -2px;
-  width: 20px;
-  height: 20px;
 } 
 
 .drag-placeholder {
   width: 15px;
   height: 15px;
+  border: 1px solid black;
   border-radius: 50%;
   background-color: black;
-  border: 1px solid black;
 }
 
-/* Mat Card Hint*/
+/* Mat Card Hint */
 mat-card {
   width: 400px;
   height: 40px;
-  position: absolute;
-  left: 25px;
-  bottom: 60px;
-  display: flex;
-  z-index: 100;
-
+  background: #323232;
   line-height: 20px;
   font-weight: 16px;
   color: rgba(255, 255, 255, 0.7);
-  background: #323232;
+  position: absolute;
+  left: 25px;
+  bottom: 60px;
+  z-index: 100;
+  display: flex;
 }
 
 mat-card button {
+  background-color: inherit;
   line-height: 36px;
   color: #bcaaa4;
-  background-color: inherit;
 }
 
 mat-card span {
   flex: 1 1 auto;
+}
+
+
+/* Tablet Size */
+@media(min-width: 700px) {
+  #stopwatch {
+    left: 5%;
+    top: 43%;
+  }
+  #stopwatch-before {
+    left: 9%;
+    top: 40%;
+  }
+}
+
+/* Laptop Size */
+@media(min-width: 1000px) {
+  #stopwatch {
+    left: 10%;
+    top: 40%;
+  }
+  #stopwatch-before {
+    left: 13%;
+    top: 37%;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
@@ -12,6 +12,7 @@ import { CgolService } from '../cgol.service';
 
 export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   
+  @Input() restoredUserAutoTurnDuration: number;
   @Output() autoTurnDurationOutput = new EventEmitter<number>();
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
@@ -30,12 +31,13 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.timerDragCircles.length; i++) {
       this.timerDragCircles[i] = [];
     }
-    this.timerDragCircles[6][0] = 'c';
 
-    this.userSetAutoTurnDuration = 30;
+    //Set timer values (duration, watch hand, hourglass) to user-restored values
+    this.userSetAutoTurnDuration = this.restoredUserAutoTurnDuration;
     this.resetWatchHand();
+    this.setHourglassPosition(this.restoredUserAutoTurnDuration);
+
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
-      
       this.autoTurnTimerEnabled = isEnabled;
       this.resetWatchHand();
     });
@@ -66,6 +68,18 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
 
     const degreesToAdd = (this.userSetAutoTurnDuration - defaultMinMark) / fromSecondsToInterval;
     this.stopwatchCurrDegrees = defaultStartingDegrees + degreesToAdd * degreesForEachInterval;
+  }
+
+  // convert user-set time (60, 55, 30, etc) to correct position of dropLists 
+  setHourglassPosition(userSetPosition: number) {
+    //index 0 = 60 seconds;  index 11 = 5 seconds
+    let hourglassArrayIndex = 12;
+    const numberOfClockIntervals = userSetPosition / 5;
+    hourglassArrayIndex -= numberOfClockIntervals;
+
+    // add a value to first element corresponding dropList array
+    // this will place the Hourglass Icon there
+    this.timerDragCircles[hourglassArrayIndex][0] = 'c';
   }
 
   onAutoTurnTimer(stopTimer?) {

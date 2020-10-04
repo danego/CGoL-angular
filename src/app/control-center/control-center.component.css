@@ -1,3 +1,4 @@
+/* Designed Mobile First -- all to-be-changed styles are at bottom of brackets, seperated by an empty line */
 
 /*Control Center and Stopwatch*/
 section {
@@ -6,7 +7,7 @@ section {
   width: 100%;
 }
 
-/* Buttons / Form */
+/* Buttons/Form */
 #buttons {
   align-self: center;
   background-color: lightblue;
@@ -18,7 +19,6 @@ section {
   border: 1px solid rgba(222, 184, 135, .8); /* burlywood */
   padding: .5em;
   margin: .5em .5em;
-  /*max-height: 100px; */
 }
 
 #left-buttons {
@@ -51,7 +51,6 @@ section {
 label, span {
   margin-left: 4px;
   margin-right: 5px;
-
   font-size: 16px;
 }
 
@@ -68,12 +67,17 @@ button {
   background-image: url("../../assets/noise.png");
   background-color: rgba(255, 222, 173, .9); /* navajowhite */
   border: 1px solid white;
+  max-height: 40px;
   
-  max-height: 40px; /* FIX THIS */
-  min-width: 85px; /* This will need to be adjusted with text size*/
-  font-size: 12px;
+  min-width: 85px;
   padding: 0 5px;
   margin: 0 3px;
+  font-size: 12px;
+}
+
+/* For Inputs - to fix invisible spin button*/
+input[type=number]::-webkit-inner-spin-button {
+  width: 14px;
 }
 
 /* Specific Button Styles */
@@ -93,9 +97,8 @@ button {
 
 #autoTurnTimer {
   background-color: lightgreen;
+  
   min-width: 30px;
-  width: auto;
-
   margin-right: 40px;
 }
 
@@ -103,9 +106,9 @@ button {
 mat-form-field {
   margin-left: 10px;
 
-  margin-top: 4px;
   width: 45px;
   height: 45px;
+  margin-top: 4px;
   font-size: 12px;
 }
 
@@ -120,7 +123,6 @@ mat-form-field {
 #clearAll {
   box-sizing: border-box;
   border: 1px solid white;
-  /* margin-left: 10px; */
 }
 
 interactive-stopwatch {
@@ -146,6 +148,19 @@ interactive-stopwatch {
     height: 60px;
   }
 
+  label, span {
+    font-weight: bold;
+    display: inline;
+  }
+
+  button {
+    min-width: 95px;
+    padding: 0 10px;
+    margin: 0 5px;
+    font-size: 14px;
+  }
+
+  /* Specific Button Styles */
   #autoTurnTimerDiv {
     flex: auto;
   }
@@ -159,27 +174,12 @@ interactive-stopwatch {
     margin-right: 5px;
   }
 
-  label, span {
-    margin-left: 4px;
-    margin-right: 5px;
-    font-weight: bold;
-    display: inline;
-  }
-
-  button {
-    min-width: 95px;
-    padding: 0 10px;
-    margin: 0 5px;
-    font-size: 14px;
-  }
-
   /* For #randoDensity */
   mat-form-field {
     width: 60px;
     height: 60px;
-    font-size: 16px;
-    
     margin-top: 0px;
+    font-size: 16px;
   }
 
   #left-buttons > mat-divider, mat-divider {
@@ -198,3 +198,4 @@ interactive-stopwatch {
     font-size: 19px;
   }
 }
+
