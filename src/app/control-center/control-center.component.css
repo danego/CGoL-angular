@@ -1,6 +1,6 @@
 /* Designed Mobile First -- all to-be-changed styles are at bottom of brackets, seperated by an empty line */
 
-/*Control Center and Stopwatch*/
+/* Control Center and Stopwatch */
 section {
   position: relative;
   height: 100%;
@@ -75,7 +75,7 @@ button {
   font-size: 12px;
 }
 
-/* For Inputs - to fix invisible spin button*/
+/* For Inputs - to fix invisible spin button */
 input[type=number]::-webkit-inner-spin-button {
   width: 14px;
 }

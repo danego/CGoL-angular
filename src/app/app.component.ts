@@ -6,14 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
   title = 'cgol-angular';
 
   constructor() {}
 
   ngOnInit() {
-
-    //add a simple url bar updater to reflect where user is on our scroll page
-    //note - this scroll and timeout feature inspired by Chris Ferdinandi's blog, 'Go Make Things'
+    //note - this scroll and timeout feature modified off of Chris Ferdinandi's blog, 'Go Make Things'
     let isScrolling;
     const screenRefreshrateMS = 66;
 
@@ -21,7 +20,7 @@ export class AppComponent implements OnInit{
       window.clearTimeout(isScrolling);
 
       isScrolling = window.setTimeout(function() {
-        //Use only pageYOffset ... don't need to know scrollDelta, only finalScrollPos
+        //Use only pageYOffset ... don't need to know scrollDelta, only finalScrollPosition
         let end = window.pageYOffset;
 
         if(end > 500) {

@@ -17,11 +17,10 @@
       class="stopwatchButton"
       draggable=false>
     <img 
-      
       src='../../assets/stopwatch/stopwatch-hand-2.png'
       id="stopwatchHand"
       [ngStyle]="progressWatchHand()"
-      draggable=false> <!-- cdkDragBoundary=".stopwatch-boundary" cdkDrag (cdkDragEnded)="onDragEnd($event)"-->
+      draggable=false>
 
     <!--DragDrop Specifics:-->
     <div cdkDropListGroup id="list-group">
@@ -32,7 +31,7 @@
     
         <mat-icon *ngFor="let item of timerDragCircles[i]" cdkDrag 
           cdkDragBoundary=".stopwatch-boundary" class="drag-item" inline="true"
-          stopPropo> <!-- (click)="stopPropo($event)" -->
+          stopPropo>
      
           <div *cdkDragPlaceholder class="drag-placeholder"></div>          
           hourglass_full
@@ -55,14 +54,3 @@
     Got it!
   </button>
 </mat-card>
-
-
-
-<!--
-  <div *ngFor="let item of timerDragCircles[i]" cdkDrag 
-          cdkDragBoundary=".stopwatch-boundary">
-    
-          <div *cdkDragPlaceholder class="drag-placeholder"></div>          
-          <mat-icon class="drag-item" inline="true">hourglass_full</mat-icon>
-        </div>
--->

@@ -1,7 +1,9 @@
-/* Table/Board Styling - mostly styled dynamically with table-sizing.directive */
+/* Table/Board Styling - mainly styled dynamically with table-sizing.directive */
+
 section {
   font-size: 1px;
 }
+
 table {
   border: 2px solid black;
   border-collapse: collapse;
@@ -10,10 +12,10 @@ table {
 }
 
 table td {
-  border: 1px solid black;
-  box-sizing: border-box;
-  display: table-cell;
   width: auto;
   height: auto;
+  border: 1px solid black;
   padding: 0;
+  box-sizing: border-box;
+  display: table-cell;
 }

@@ -22,17 +22,15 @@ export class TableSizingDirective implements OnInit{
   @HostBinding('style.height') height: string;
 
   @HostListener('window:resize', ['$event']) onResize(event?) {
-
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
   }
   
-  constructor(private cgolService: CgolService, private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef) { }
   
   ngOnInit() {
     //get current screen sizes
     this.onResize();
-
 
     //Establish correct overall table/board size
     let remSize;

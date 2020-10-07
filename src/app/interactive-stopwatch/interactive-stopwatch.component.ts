@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { CgolService } from '../cgol.service';
 
@@ -16,19 +16,19 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   @Output() autoTurnDurationOutput = new EventEmitter<number>();
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
-  autoTurnTimeLeft: Subscription;
+  autoTurnTimeLeftSub: Subscription;
   userSetAutoTurnDuration: number;
   stopwatchCurrDegrees: number;
   timerDragCircles: any[][];
   showMatCardHint: boolean;
 
-  constructor(
-    private cgolService: CgolService) { }
+  constructor(private cgolService: CgolService) { }
 
   ngOnInit(): void {
     //Drag & Drop List Set Up
     this.timerDragCircles = new Array(12);
     for (let i = 0; i < this.timerDragCircles.length; i++) {
+      //all drop lists, except for one, will start out empty
       this.timerDragCircles[i] = [];
     }
 
@@ -41,7 +41,8 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
       this.autoTurnTimerEnabled = isEnabled;
       this.resetWatchHand();
     });
-    this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
+
+    this.autoTurnTimeLeftSub = this.cgolService.timerTimeRemaining.subscribe(timeString => {
       //do not advance timer hand if first emit
       if (+timeString !== this.userSetAutoTurnDuration) {
         this.stopwatchCurrDegrees -= 6.05;
@@ -59,10 +60,11 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   }
 
   resetWatchHand() {
-    // based on the asset images, the watchHand default degrees is -2 at the 45 min mark
+    //based on the asset images, the watchHand default degrees is -2 at the 45 min mark
     const defaultMinMark = 45;
     const defaultStartingDegrees = -2;
-    // used to figure out how many watch marks (15, 20, 25 etc) from default
+
+    //used to figure out how many watch marks (15, 20, 25 etc) from default
     const fromSecondsToInterval = 5; 
     const degreesForEachInterval = 30;
 
@@ -77,13 +79,13 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     const numberOfClockIntervals = userSetPosition / 5;
     hourglassArrayIndex -= numberOfClockIntervals;
 
-    // add a value to first element corresponding dropList array
-    // this will place the Hourglass Icon there
+    //add a value to first element corresponding dropList array
+    //this will place the Hourglass Icon there
     this.timerDragCircles[hourglassArrayIndex][0] = 'c';
   }
 
   onAutoTurnTimer(stopTimer?) {
-    //for dragging the hourglass ... otherwise it alternates
+    //for dragging the hourglass ... otherwise it alternates starting & stopping
     if (stopTimer) {
       this.cgolService.stopAutoTimer();
     }
@@ -95,23 +97,20 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  //used to stop propagation of clicks from hourglass icon (ie don't start the timer)
-  stopPropo(event) {
-    event.stopPropagation();
-  }
-
+  // Hourglass Icon dragged & dropped
   dropped(event: CdkDragDrop<string[]>) {
-
-    //moveItemInArray(this.timerDragCircles, event.previousIndex, event.currentIndex);
+    //move to new, dropped list
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
       event.currentIndex
     );
+
     //cancel timer
     this.onAutoTurnTimer(true);
 
+    //Update values based on drop location
     const idAsClockTime = 60 - (+event.container.element.nativeElement.id * 5);
     this.userSetAutoTurnDuration = idAsClockTime;
     this.resetWatchHand();
@@ -121,6 +120,7 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   }
 
   applyDragCircleRotate(index) {
+    //Note: this is a little clunky, would be better served with sin, cos
     let leftDeg,
         bottomDeg;
     switch(index) {
@@ -180,8 +180,7 @@ export class InteractiveStopwatchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
     this.autoTurnTimerSub.unsubscribe();
-    this.autoTurnTimeLeft.unsubscribe();
+    this.autoTurnTimeLeftSub.unsubscribe();
   }
 }

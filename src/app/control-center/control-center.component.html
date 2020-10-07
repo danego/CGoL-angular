@@ -50,15 +50,14 @@
 
     <div id="right-buttons"> 
       <div>     
-  
         <button 
           mat-raised-button
           (click)="onClearBoard()" 
           id="clearAll"
-          appClickedColor
-        >Clear All</button>
+          appClickedColor>
+          Clear All
+        </button>
         
-
         <mat-divider [vertical]="true"></mat-divider>
         <label for="board-size-select">Choose board size:</label>
         <mat-slider 
@@ -68,7 +67,8 @@
           id="board-size-select" 
           formControlName="boardSize" 
           (change)="onBoardSize()"
-          min="2" max="75"></mat-slider>
+          min="2" max="75">
+        </mat-slider>
       
         <label for="board-size-select" class="small-visible">{{ boardSize }}</label>
       </div>

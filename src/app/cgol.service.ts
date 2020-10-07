@@ -4,26 +4,25 @@ export class CgolService {
 
   private boardArrays: boolean[][];
   boardArraysSub = new Subject<boolean[][]>();  //emits new board size
-  private _boardSize: number;            //is length of one side
+  private _boardSize: number;  //is length of one side
 
   timerEnabled =  new Subject<boolean>();
   timerTimeRemaining = new Subject<string>();
   timerDefaultTime = 30000;
+
   //used to set & clear timeout references:
   private timerReferencesObject = {   
-
     timerOverallTimeout: null,
     timerTurnInterval: null,   
     timerTimeRemainingEachSecond: 30
   }
 
-  //Init & New BoardSize Section:
+  
+  // Init & New BoardSize Section:
   cgolBoardInit(boardSize: number) {
-
     // Only update boardSize if new, valid size passed in
     // if parameter === -1, then do not update size; only emit boardArrays
     if (boardSize !== -1) {
-      
       const boardArraysTemporary = this.copyOldMarksIntoNewBoard(boardSize);
       //set (or reset) internal variables:
       this._boardSize = boardSize;
@@ -34,34 +33,33 @@ export class CgolService {
   }
 
   private copyOldMarksIntoNewBoard(boardSize: number) {
-
+    //create a temporary nested array for new board
     const boardArraysTemporary = new Array(boardSize);
     for (let i = 0; i < boardSize; i++) {
       boardArraysTemporary[i] = new Array(boardSize).fill(false);
     }
+
     // case of changed boardSize ... preserve selected squares/marks
     if (this.boardArrays) {
-
       const oldMarksObject = this.translateOldMarksIndicesToNewBoardSize(this._boardSize, boardSize);
       let startingIndex;
       let endingIndex;
+
       //new board is larger
       if (this._boardSize < boardSize) {
-
         startingIndex = oldMarksObject.startIndex;
         endingIndex = oldMarksObject.startIndex + this._boardSize;
       }
       //new board is smaller
       else {
-
         startingIndex = 0;
         endingIndex = boardSize;
       }
+
       //copy old squares/marks into new board
       let singleArrayIndex = 0;
       for (let i = startingIndex; i < endingIndex; i++) {
         for (let j = startingIndex; j < endingIndex; j++) {
-
           boardArraysTemporary[i][j] = oldMarksObject.toBeCopiedMarksArray[singleArrayIndex];
           singleArrayIndex++;
         }
@@ -71,13 +69,13 @@ export class CgolService {
   }
 
   private translateOldMarksIndicesToNewBoardSize(oldBoardSize: number, newBoardSize: number) {
-
+    //creates array of preserved marks 
+    //and determines starting index on new board for where to start copying 
     let toBeCopiedMarksArray,
         startIndicesForFirstSquare;
 
     //small board to larger case
     if (newBoardSize > oldBoardSize) {
-
       if (newBoardSize - oldBoardSize === 1) {
         //offsets to bottom right corner, instead of top left, if board is next size up
         startIndicesForFirstSquare = 1;
@@ -85,10 +83,11 @@ export class CgolService {
       else {
         startIndicesForFirstSquare = Math.floor((newBoardSize - oldBoardSize) / 2);
       }
+
+      //find equivalent position on larger board and make? mark
       toBeCopiedMarksArray = new Array(oldBoardSize * oldBoardSize);
       this.boardArrays.forEach((row, rowIndex) => {
         row.forEach((square, squareIndex) => {
-
           const currSingleLineIndex = squareIndex + rowIndex * oldBoardSize;
           toBeCopiedMarksArray[currSingleLineIndex] = square;
         });
@@ -96,16 +95,16 @@ export class CgolService {
     }
     //large board to smaller case
     else {
-
       startIndicesForFirstSquare = Math.floor((oldBoardSize - newBoardSize) / 2);
       let endingIndex = startIndicesForFirstSquare + newBoardSize;
       toBeCopiedMarksArray = new Array(newBoardSize * newBoardSize);
 
+      //store the marks in an array (non-nested)
       let singleArrayIndex = 0;
 
+      //find equivalent position on smaller board and make? mark
       for (let i = startIndicesForFirstSquare; i < endingIndex; i++) {
         for (let j = startIndicesForFirstSquare; j < endingIndex; j++) {
-          
           toBeCopiedMarksArray[singleArrayIndex] = this.boardArrays[i][j];
           singleArrayIndex++;
         }
@@ -118,32 +117,37 @@ export class CgolService {
     };
   }
  
-  //Turns & Marks Section:
+  // Turns & Marks Section:
   makeTurn() {
-    
     const boardArraysNextState = new Array(this.boardSize);
     for (let i = 0; i < this.boardSize; i++) {
-
       boardArraysNextState[i] = new Array(this.boardSize).fill(false);
     }
 
     this.boardArrays.forEach((row, rowIndex) => {
       row.forEach((square, squareIndex)=> {
-
         let totNeighborsAlive = this.countTotNeighbors(rowIndex, +squareIndex);
+
         //Evaluate neighbor count to determine if cell lives or die:
         //case: if alive already
         if (square) {
           //2 or 3 neghibors = survives
-          if (totNeighborsAlive < 2 || totNeighborsAlive > 3) boardArraysNextState[rowIndex][squareIndex] = false;
-          else boardArraysNextState[rowIndex][squareIndex] = true;
+          if (totNeighborsAlive < 2 || totNeighborsAlive > 3) {
+            boardArraysNextState[rowIndex][squareIndex] = false;
+          }
+          else {
+            boardArraysNextState[rowIndex][squareIndex] = true;
+          }
         }
         //case: dead cell
         else {
-    
-          if (totNeighborsAlive === 3) boardArraysNextState[rowIndex][squareIndex] = true;
-          else boardArraysNextState[rowIndex][squareIndex] = false;
+          if (totNeighborsAlive === 3) {
+            boardArraysNextState[rowIndex][squareIndex] = true; 
           }
+          else {
+            boardArraysNextState[rowIndex][squareIndex] = false;
+          }
+        }
       })
     });
 
@@ -152,7 +156,6 @@ export class CgolService {
   }
 
   private countTotNeighbors(rowIndex: number, squareIndex: number) {
-
     let totNeighborsAlive = 0;      
     let rowEnd, 
         rowStart,
@@ -190,7 +193,6 @@ export class CgolService {
     countNeighborsInRowsRecursively(rowStart, squareStart);
 
     function countNeighborsInRowsRecursively(currentRow, startingSquare) {
-
       if (currentRow <= rowEnd) {
         //check if cell alive in each row
         for (let i = startingSquare; i < squareIdxQuantity + startingSquare; i++) {
@@ -226,10 +228,11 @@ export class CgolService {
   }
 
   makeMarkRandom(markCount: number) {
-    //delete all current marks
+    //delete all current marks first
     this.clearAllMarks();
-    for (let count = 0; count < markCount; count++) {
 
+    //determine position indices for each random mark
+    for (let count = 0; count < markCount; count++) {
       const randoMarkRow = Math.floor(Math.random() * this.boardSize);
       const randoMarkSquare = Math.floor(Math.random() * this.boardSize);
 
@@ -239,22 +242,19 @@ export class CgolService {
   }
 
   clearAllMarks() {
-
     this.boardArrays.forEach(row => {
       row.fill(false);
     });
   }
 
-  //Timer Section:
+  // Timer Section:
   startAutoTimer(timerDefaultTime = 30) {
-    //add updating seconds remaining count!!
     let duration = timerDefaultTime * 1000;
     this.timerEnabled.next(true);
     this.timerTimeRemaining.next(String(timerDefaultTime));
 
     //set overall timer length
     this.timerReferencesObject.timerOverallTimeout = window.setTimeout(() => {
-
       this.timerEnabled.next(false);
       this.clearTimerReferencesObject();
     }, duration);
@@ -267,7 +267,6 @@ export class CgolService {
 
     //set second timer to update string & clock features
     this.timerReferencesObject.timerTimeRemainingEachSecond = window.setInterval(() => {
-
       duration -= 1000;
       const durationLeftString = String(duration / 1000);
       this.timerTimeRemaining.next(durationLeftString);
@@ -275,13 +274,11 @@ export class CgolService {
   }
 
   stopAutoTimer() {
-    
     this.timerEnabled.next(false);
     this.clearTimerReferencesObject();
   }
 
   private clearTimerReferencesObject() {
-
     clearTimeout(this.timerReferencesObject.timerOverallTimeout);
     clearInterval(this.timerReferencesObject.timerTurnInterval);
     clearInterval(this.timerReferencesObject.timerTimeRemainingEachSecond);
@@ -290,10 +287,10 @@ export class CgolService {
   //Getters Section:
   getBoardArrayNested() {
     /* 
-        Line below makes a shallow copy with original references to nested arrays. 
-        While not true separation of code responsibility/permission, the increased speed merits it.
-        Uncomment out the code block below for a truly sliced boardArrays
-    */
+     *  Line below makes a shallow copy with original references to nested arrays. 
+     *  While not true separation of code responsibility/permission, the increased speed merits it.
+     *  Uncomment out the code block below for a truly sliced boardArrays
+     */
     const slicedArray = this.boardArrays.slice();
     
     /*
@@ -301,11 +298,11 @@ export class CgolService {
     for (let i = 0; i < this.boardArrays.length; i++) {
       slicedArray[i] = this.boardArrays[i].slice(0);
     } */
+
     return slicedArray;
   }
 
   get boardSize() {
     return this._boardSize;
   }
-  
 }

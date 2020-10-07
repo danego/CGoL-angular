@@ -1,31 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; //For Material, but not needed
 
 import { AppComponent } from './app.component';
 import { ControlCenterComponent } from './control-center/control-center.component';
 import { BoardComponent } from './board/board.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { InteractiveStopwatchComponent } from './interactive-stopwatch/interactive-stopwatch.component';
 import { CgolService } from './cgol.service';
 import { ClickedColorDirective } from './clicked-color.directive';
 import { TableSizingDirective } from './table-sizing.directive';
 import { ClickedTurnDirective } from './clicked-turn.directive';
 import { StopPropoDirective } from './stop-propo.directive';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MaterialModule } from './material.module';
-import { InteractiveStopwatchComponent } from './interactive-stopwatch/interactive-stopwatch.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ControlCenterComponent,
     BoardComponent,
+    LandingPageComponent,
+    InteractiveStopwatchComponent,
     ClickedColorDirective,
     ClickedTurnDirective,
     TableSizingDirective,
-    StopPropoDirective,
-    LandingPageComponent,
-    InteractiveStopwatchComponent
+    StopPropoDirective
   ],
   imports: [
     BrowserModule, 

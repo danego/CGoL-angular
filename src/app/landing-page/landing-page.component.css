@@ -1,13 +1,14 @@
 /* Designed Mobile First -- all to-be-changed styles are at bottom of brackets, seperated by an empty line */
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
-/* Landing Page Layout*/
+
+/* Landing Page Layout */
 #landing {
   background-color: rgba(210, 180, 140, 0.7);
   position: absolute;
   z-index: -50;
   display: flex; 
-
+  
   flex-direction: column;
   height: 100%;  
   width: 100%;
@@ -18,13 +19,13 @@ h1 {
   font-family: Oswald;
   letter-spacing: 4px;
 
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  margin: 11px 0px 0px 12px;
   transform: rotate(-10deg);
   font-size: 18px;
   line-height: 24px;
-  padding: 10px;
-  margin: 11px 0px 0px 12px;
-  height: 100px;
-  width: 100px;
 }
 
 main {
@@ -110,7 +111,7 @@ main > div {
   }
 
   h1 {
-    height: 20vw;
+    height: 25vw;
     width: 15vw;
     margin: 0px 0px 140px 75px;
     padding: 40px;
@@ -118,7 +119,7 @@ main > div {
     transform: rotate(-12deg);
     z-index: -10;
     font-size: 3vw;
-    line-height: 5.5vw;
+    line-height: 7vw;
   }
 
   main {
@@ -158,6 +159,13 @@ main > div {
 @media(min-width: 1000px) {
   main > div {
     display: block;
+  }
+
+  h1 {
+    height: 22vw;
+    width: 15vw;
+    line-height: 6vw; 
+    font-size: 3vw;
   }
 
   #scroll {

@@ -18,7 +18,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   //note - if the string is set to 'ON', the button is currently off
   autoTurnTimerEnabled: boolean = false;
   autoTurnTimerSub: Subscription;
-  autoTurnTimeLeft: Subscription;
+  autoTurnTimeLeftSub: Subscription;
   autoTurnTimerCurrString: string = 'ON';
   autoTurnTimeLeftString: string;
   userSetTimerDuration: number;
@@ -36,12 +36,11 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
     this.recoverFormFromLocalStorage();
     
     this.autoTurnTimerSub = this.cgolService.timerEnabled.subscribe(isEnabled => {
-
       this.autoTurnTimerEnabled = isEnabled;
       this.handleAutoTurnButtonAppearance(isEnabled);
     });
-    this.autoTurnTimeLeft = this.cgolService.timerTimeRemaining.subscribe(timeString => {
 
+    this.autoTurnTimeLeftSub = this.cgolService.timerTimeRemaining.subscribe(timeString => {
       this.autoTurnTimeLeftString = ' ' + timeString;
     });
   }
@@ -51,7 +50,6 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   }
 
   onAutoTurnTimer() {
-
     this.autoTurnTimerEnabled ? 
       this.cgolService.stopAutoTimer() :
       this.cgolService.startAutoTimer(this.userSetTimerDuration);
@@ -88,7 +86,6 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   }
 
   onBoardSize() {
-
     this.cgolService.cgolBoardInit(+this.controlForm.get('boardSize').value);
     this.boardSize = +this.controlForm.get('boardSize').value;
     this.saveFormToLocalStorage();
@@ -99,7 +96,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   }
 
   recoverFormFromLocalStorage() {
-    //for length of timer, set by environment vars or localStorage
+    //for length of timer, set either by environment vars or localStorage
     let timerDuration;
 
     //if there's no previous form in localStorage use use global environment variables
@@ -113,6 +110,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
         'boardSize': defaultBoardSize
       });
 
+      //Hourglass Value
       timerDuration = environment.timerDuration;
     }
     else {
@@ -121,6 +119,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
         JSON.parse(localStorage.getItem('formValues'))
       );
   
+      //Hourglass Value
       timerDuration = +localStorage.getItem('hourglassPosition');
     }
     
@@ -147,8 +146,7 @@ export class ControlCenterComponent implements OnInit, OnDestroy {
   }
  
   ngOnDestroy() {
-    
     this.autoTurnTimerSub.unsubscribe();
-    this.autoTurnTimeLeft.unsubscribe();
+    this.autoTurnTimeLeftSub.unsubscribe();
   }
 }
